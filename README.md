@@ -86,6 +86,26 @@ flyClient.service()
 
 ```
 
+All requests and response are written in details in lib/request and lib/response.
+All options requests are written in each requests.
+
+E,g AirfareReqeust has following these :
+```
+    withOneWay(List<Slice> slices, List<PassengerRequest> passengers), 
+    withRouteWay(List<Slice> slices, List<PassengerRequest> passengers), 
+    withFares(List<Slice> slices, List<PassengerRequest> passengers, List<String> permitted_carriers), 
+    withMaxPrices(List<Slice> slices, List<PassengerRequest> passengers, Map<String, String> maxPrices), 
+    withCarriers(List<Slice> slices, List<PassengerRequest> passengers, List<String> permitted_carriers), 
+    withFlightNumbers(List<Slice> slices, List<PassengerRequest> passengers, List<String> flightNumbers), 
+    withArrivalTimes(List<Slice> slices, List<PassengerRequest> passengers, List<PermittedTime> permittedTimes), 
+    withDepartureTimes(List<Slice> slices, List<PassengerRequest> passengers, List<PermittedTime> permittedTimes),
+    withPermittedCarriers(List<Slice> slices, List<PassengerRequest> passengers, List<String> permittedCarriers)
+
+    Note: Slice and Passenger, PermittedTime are the models of the API and these are written in models
+```
+
+
+
 ### Legacy API
 
 If you're looking for a Java client that works with the legacy Flyline API, use
