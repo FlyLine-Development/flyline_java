@@ -32,14 +32,12 @@ FlylineClient flylineClient = FlylineClient.newBuilder()
   .build();
 
 // SET the request params for Airfare
-GetAirfareRequest request = new GetAirfareRequest();
+// SET the cabin_class as the Strucuture parameter
+GetAirfareRequest request = new GetAirfareRequest("economy");
 
-//SET the Cabin class of the Reqeust
-request.setCabinClass("economy");
 
-// Set the slices of the Request
-// Set the departure and arrival of slice.
-
+// Set the Slices of the Airfare Request
+// Set the departure and arrival of Slices.
 Place departure = new Place();
 departure.setCode("DFW");
 departure.setDate("2021-06-14");
@@ -51,7 +49,7 @@ Slice slice = new Slice();
 List<Slice> slices = new List<Slice>();
 slices.add(slice);
 
-request.setSlices(slices);
+
 
 // Set the Passengers of the Reqeust
 Passenger passenger = new Passenger();
@@ -59,7 +57,7 @@ passenger.setAge("27");
 List<Passenger> passengers = new List<Passenger>();
 passengers.add(passenger);
 
-request.setPassengers(passengers);
+request = request.withOneWay(slices, passengers);
 
 Response<AirfareResponse> response = flylineClient.service()
     .getAirfareWithParams(f_token, request).execute();
