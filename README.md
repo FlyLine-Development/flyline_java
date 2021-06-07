@@ -23,7 +23,7 @@ Flyline-java is available at [Maven Central](https://search.maven.org/#search%7C
 </dependency>
 ```
 
-### Basic Usage
+### How to use
 
 ```java
 
