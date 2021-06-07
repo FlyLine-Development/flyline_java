@@ -89,7 +89,7 @@ flyClient.service()
 All requests and response are written in details in lib/request and lib/response.
 All options requests are written in each requests.
 
-E,g AirfareReqeust has following these :
+E,g  AirfareRequest has following these :
 ```
     withOneWay(List<Slice> slices, List<PassengerRequest> passengers), 
     withRouteWay(List<Slice> slices, List<PassengerRequest> passengers), 
