@@ -28,84 +28,60 @@ Flyline-java is available at [Maven Central](https://search.maven.org/#search%7C
 ```java
 
 // Use builder to create a client
-FlylineClient flylineClient = FlylineClient.newBuilder()
-  .build();
+FlylineClient flylineClient = new FlylineClient("test_***")
 
 // SET the request params for Airfare
 // SET the cabin_class as the Strucuture parameter
-GetAirfareRequest request = new GetAirfareRequest("economy");
 
-
-// Set the Slices of the Airfare Request
-// Set the departure and arrival of Slices.
-Place departure = new Place();
-departure.setCode("DFW");
-departure.setDate("2021-06-14");
-
-Place arrival = new Place();
-arrival.setCode("LAX");
-
-Slice slice = new Slice();
-List<Slice> slices = new List<Slice>();
-slices.add(slice);
-
-
-
-// Set the Passengers of the Reqeust
-Passenger passenger = new Passenger();
-passenger.setAge("27");
-List<Passenger> passengers = new List<Passenger>();
-passengers.add(passenger);
-
-request = request.withOneWay(slices, passengers);
-
-Response<AirfareResponse> response = flylineClient.service()
-    .getAirfareWithParams(f_token, request).execute();
-
-if (response.isSuccessful()) {
-  accessToken = response.body().getAccessToken();
-}
-
-
-// Asynchronously do the same thing. Useful for potentially long-lived calls.
-flyClient.service()
-    .getAirfareWithParams(f_toke, request)
-    .enqueue(new Callback<AirfareResponse>() {
-        @Override
-        public void onResponse(Call<AirfareResponse> call, Response<AirfareResponse> response) {
-          if (response.isSuccessful()) {
-            accessToken = response.body.getAccessToken();
-          }
+JSONObject jsonObj = {
+    "cabin_class": "economy",
+    "slices": [
+        {
+            "departure": {
+                "code": "DFW",
+                "date": "{{departureDate}}"
+            },
+            "arrival": {
+                "code": "LAX"
+            }
         }
-
-        @Override
-        public void onFailure(Call<AirfareResponse> call, Throwable t) {
-          // handle the failure as needed
+    ],
+    "passengers": [
+        {
+            "age": 27
         }
-    });
+    ]
+};
+
+String response = flylineClient.get_airfares(jsonObj.Stringify());
 
 ```
-
-All requests and response are written in details in lib/request and lib/response.
-All options requests are written in each requests.
-
-E,g  AirfareRequest has following these :
+EndPoints: 
 ```
-    withOneWay(List<Slice> slices, List<PassengerRequest> passengers), 
-    withRouteWay(List<Slice> slices, List<PassengerRequest> passengers), 
-    withFares(List<Slice> slices, List<PassengerRequest> passengers, List<String> permitted_carriers), 
-    withMaxPrices(List<Slice> slices, List<PassengerRequest> passengers, Map<String, String> maxPrices), 
-    withCarriers(List<Slice> slices, List<PassengerRequest> passengers, List<String> permitted_carriers), 
-    withFlightNumbers(List<Slice> slices, List<PassengerRequest> passengers, List<String> flightNumbers), 
-    withArrivalTimes(List<Slice> slices, List<PassengerRequest> passengers, List<PermittedTime> permittedTimes), 
-    withDepartureTimes(List<Slice> slices, List<PassengerRequest> passengers, List<PermittedTime> permittedTimes),
-    withPermittedCarriers(List<Slice> slices, List<PassengerRequest> passengers, List<String> permittedCarriers)
-
-    Note: Slice and Passenger, PermittedTime are the models of the API and these are written in models
+flylineClient.get_airfares(JsonString data);
+flylineClient.get_airattributes_by_flight_number(JsonString data);
+flylineClient.get_airattributes_by_route(JsonString data);
+flylineClient.get_schedules_by_flight_number(JsonString data);
+flylineClient.get_schedules_by_route(JsonString data);
+flylineClient.get_seat_map(JsonString data);
+flylineClient.get_aircrafts();
+flylineClient.get_aircraft(String iata_code);
+flylineClient.get_airlines();
+flylineClient.get_airline(String iata_code);
+flylineClient.get_airports();
+flylineClient.get_airport(String iata_code);
+flylineClient.get_aiports_by_city(String iata_code);
+flylineClient.get_cities(String iata_code);
+flylineClient.get_city(String iata_code);
+flylineClient.get_cabin_class_mapping(String carrier, String cabin_class);
+flylineClient.get_seat_types();
+flylineClient.get_seat_layouts();
+flylineClient.get_foods();
+flylineClient.get_beverages();
+flylineClient.get_entertainments();
+flylineClient.get_wifis();
+flylineClient.get_powers();
 ```
-
-
-
 ### Legacy API
 
 If you're looking for a Java client that works with the legacy Flyline API, use
