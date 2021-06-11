@@ -58,29 +58,29 @@ String response = flylineClient.get_airfares(jsonObj.Stringify());
 ```
 EndPoints: 
 ```
-flylineClient.get_airfares(JsonString data);
-flylineClient.get_airattributes_by_flight_number(JsonString data);
-flylineClient.get_airattributes_by_route(JsonString data);
-flylineClient.get_schedules_by_flight_number(JsonString data);
-flylineClient.get_schedules_by_route(JsonString data);
-flylineClient.get_seat_map(JsonString data);
-flylineClient.get_aircrafts();
-flylineClient.get_aircraft(String iata_code);
-flylineClient.get_airlines();
-flylineClient.get_airline(String iata_code);
-flylineClient.get_airports();
-flylineClient.get_airport(String iata_code);
-flylineClient.get_aiports_by_city(String iata_code);
-flylineClient.get_cities(String iata_code);
-flylineClient.get_city(String iata_code);
-flylineClient.get_cabin_class_mapping(String carrier, String cabin_class);
-flylineClient.get_seat_types();
-flylineClient.get_seat_layouts();
-flylineClient.get_foods();
-flylineClient.get_beverages();
-flylineClient.get_entertainments();
-flylineClient.get_wifis();
-flylineClient.get_powers();
+flylineClient.getAirfares(JsonString data);
+flylineClient.getAirAttributesByFlightNumber(JsonString data);
+flylineClient.getAirAttributesByRoute(JsonString data);
+flylineClient.getSchedulesByFlightNumber(JsonString data);
+flylineClient.getSchedulesByRoute(JsonString data);
+flylineClient.getSeatMap(JsonString data);
+flylineClient.getAircrafts();
+flylineClient.getAircraft(String iata_code);
+flylineClient.getAirlines();
+flylineClient.getAirline(String iata_code);
+flylineClient.getAirports();
+flylineClient.getAirport(String iata_code);
+flylineClient.getAiportsByCity(String iata_code);
+flylineClient.getCities(String iata_code);
+flylineClient.getCity(String iata_code);
+flylineClient.getCabinClassMapping(String carrier, String cabin_class);
+flylineClient.getSeatTypes();
+flylineClient.getSeatLayouts();
+flylineClient.getFoods();
+flylineClient.getBeverages();
+flylineClient.getEntertainments();
+flylineClient.getWifis();
+flylineClient.getPowers();
 ```
 ### Legacy API
 

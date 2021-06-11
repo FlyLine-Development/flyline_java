@@ -24,14 +24,9 @@ public final class FlylineClient {
         mediaType = MediaType.parse("application/json");
     }
 
-    public String sendRequest(String endPoint, String dataJsonStr) {
+    public String sendPostRequest(String endPoint, String dataJsonStr) {
         RequestBody requestBody;
-        if (dataJsonStr == null) {
-            requestBody = null;
-        } else {
-            requestBody = RequestBody.create(mediaType, dataJsonStr);
-        }
-
+        requestBody = RequestBody.create(mediaType, dataJsonStr);
         request = new Request.Builder()
                 .url(BASE_URL + endPoint)
                 .method("POST", requestBody)
@@ -61,99 +56,129 @@ public final class FlylineClient {
         return response_data[0];
     }
 
-    public String get_airfares(String dataJsonStr) {
-        return sendRequest("/api/flights/shop/", dataJsonStr);
+    public String sendGetRequest(String endPoint) {
+        request = new Request.Builder()
+                .url(BASE_URL + endPoint)
+                .method("GET", null)
+                .addHeader("Authorization", "FToken " + f_token)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        final String[] response_data = new String[1];
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Error: " + response);
+                } else {
+                    System.out.print("Request Success");
+                }
+
+                response_data[0] = response.body().toString();
+
+            }
+
+        });
+        return response_data[0];
     }
 
-    public String get_airattributes_by_flight_number(String dataJsonStr) {
-        return sendRequest("/api/search/amenities/", dataJsonStr);
+    public String getAirfares(String dataJsonStr) {
+        return sendPostRequest("/api/flights/shop/", dataJsonStr);
     }
 
-    public String get_airattributes_by_route(String dataJsonStr) {
-        return sendRequest("/api/amenities/search/route", dataJsonStr);
+    public String getAirAttributesByFlightNumber(String dataJsonStr) {
+        return sendPostRequest("/api/search/amenities/", dataJsonStr);
     }
 
-    public String get_schedules_by_flight_number(String dataJsonStr) {
-        return sendRequest("/api/schedule-flight", dataJsonStr);
+    public String getAirAttributesByRoute(String dataJsonStr) {
+        return sendPostRequest("/api/amenities/search/route", dataJsonStr);
     }
 
-    public String get_schedules_by_route(String dataJsonStr) {
-        return sendRequest("/api/schedule/", dataJsonStr);
+    public String getSchedulesByFlightNumber(String dataJsonStr) {
+        return sendPostRequest("/api/schedule-flight", dataJsonStr);
     }
 
-    public String get_seat_maps(String dataJsonStr) {
-        return sendRequest("/api/seat-maps", dataJsonStr);
+    public String getSchedulesByRoute(String dataJsonStr) {
+        return sendPostRequest("/api/schedule/", dataJsonStr);
     }
 
-    public String get_aircrafts() {
-        return sendRequest("/api/aircraft/", null);
+    public String getSeatMaps(String dataJsonStr) {
+        return sendPostRequest("/api/seat-maps", dataJsonStr);
     }
 
-    public String get_aircraft(String iata_code) {
-        return sendRequest("/api/aircraft/" + iata_code + "/", null);
+    public String getAircrafts() {
+        return sendGetRequest("/api/aircraft/");
     }
 
-    public String get_airlines() {
-        return sendRequest("/api/airlines/", null);
+    public String getAircraft(String iata_code) {
+        return sendGetRequest("/api/aircraft/" + iata_code + "/");
     }
 
-    public String get_airline(String iata_code) {
-        return sendRequest("/api/airlines/" + iata_code + "/", null);
+    public String getAirlines() {
+        return sendGetRequest("/api/airlines/");
     }
 
-    public String get_airports() {
-        return sendRequest("/api/airports/", null);
+    public String getAirline(String iata_code) {
+        return sendGetRequest("/api/airlines/" + iata_code + "/");
     }
 
-    public String get_airport(String iata_code) {
-        return sendRequest("/api/airports/" + iata_code + "/", null);
+    public String getAirports() {
+        return sendGetRequest("/api/airports/");
     }
 
-    public String get_airport_by_city(String iata_code) {
-        return sendRequest("/api/cities/" + iata_code + "/airports/", null);
+    public String getAirport(String iata_code) {
+        return sendGetRequest("/api/airports/" + iata_code + "/");
     }
 
-    public String get_cities() {
-        return sendRequest("/api/cities", null);
+    public String getAirportByCity(String iata_code) {
+        return sendGetRequest("/api/cities/" + iata_code + "/airports/");
     }
 
-    public String get_city(String iata_code) {
-        return sendRequest("/api/cities/" + iata_code + "/", null);
+    public String getCities() {
+        return sendGetRequest("/api/cities");
     }
 
-    public String get_cabin_class_mapping(String carrier, String cabin_class) {
+    public String getCity(String iata_code) {
+        return sendGetRequest("/api/cities/" + iata_code + "/");
+    }
+
+    public String getCabinClassMapping(String carrier, String cabin_class) {
         if (carrier != null && cabin_class != null) {
-            return sendRequest("/api/cabin-booking?carrier=" + carrier + "&cabin_class" + cabin_class, null);
+            return sendGetRequest("/api/cabin-booking?carrier=" + carrier + "&cabin_class" + cabin_class);
         } else {
-            return sendRequest("/api/cabin-booking/", null);
+            return sendGetRequest("/api/cabin-booking/");
         }
     }
 
-    public String get_seat_types() {
-        return sendRequest("/api/seats/", null);
+    public String getSeatTypes() {
+        return sendGetRequest("/api/seats/");
     }
 
-    public String get_seat_layouts() {
-        return sendRequest("/api/layouts/", null);
+    public String getSeatLayouts() {
+        return sendGetRequest("/api/layouts/");
     }
 
-    public String get_foods() {
-        return sendRequest("/api/foods/", null);
+    public String getFoods() {
+        return sendGetRequest("/api/foods/");
     }
 
-    public String get_beverages() {
-        return sendRequest("/api/beverages/", null);
+    public String getBeverages() {
+        return sendGetRequest("/api/beverages/");
     }
 
-    public String get_entertainments() {
-        return sendRequest("/api/entertainments/", null);
+    public String getEntertainments() {
+        return sendGetRequest("/api/entertainments/");
     }
 
-    public String get_wifis() {
-        return sendRequest("/api/wifis/", null);
+    public String getWifis() {
+        return sendGetRequest("/api/wifis/");
     }
 
-    public String get_powers() {
-        return sendRequest("/api/powers", null);
+    public String getPowers() {
+        return sendGetRequest("/api/powers");
     }
 }
