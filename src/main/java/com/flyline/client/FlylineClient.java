@@ -91,11 +91,11 @@ public final class FlylineClient {
     }
 
     public String getAirAttributesByFlightNumber(String dataJsonStr) {
-        return sendPostRequest("/api/search/amenities/", dataJsonStr);
+        return sendPostRequest("/search/attributes/flight/", dataJsonStr);
     }
 
     public String getAirAttributesByRoute(String dataJsonStr) {
-        return sendPostRequest("/api/amenities/search/route", dataJsonStr);
+        return sendPostRequest("/search/attributes/route/", dataJsonStr);
     }
 
     public String getSchedulesByFlightNumber(String dataJsonStr) {
